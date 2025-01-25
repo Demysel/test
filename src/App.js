@@ -47,21 +47,37 @@ function App() {
     setOpen(true);
   };
 
-  const handleSubmit = async () => {
-    try {
-      await addDoc(eventsCollection, {
-        title,
-        date: selectedDate,
-        type,
-        backgroundColor: EVENT_COLORS[type]
-      });
-      setOpen(false);
-      setTitle('');
-      setType('perso');
-    } catch (error) {
-      console.error("Erreur d'ajout d'événement : ", error);
-    }
-  };
+ const handleSubmit = async () => {
+  try {
+    const newEvent = {
+      title,
+      date: selectedDate,
+      backgroundColor: EVENT_COLORS[type],
+      type
+    };
+    
+    const newEvents = [...events, newEvent];
+    
+    await fetch(
+      `https://api.jsonbin.io/v3/b/${import.meta.env.VITE_JSONBIN_BIN_ID}`,
+      {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Access-Key': import.meta.env.VITE_JSONBIN_KEY
+        },
+        body: JSON.stringify(newEvents)
+      }
+    );
+
+    setEvents(newEvents);
+    setOpen(false);
+    setTitle('');
+    setType('perso');
+  } catch (error) {
+    console.error("Erreur d'ajout d'événement : ", error);
+  }
+};
 
   return (
     <div className="app-container">
@@ -114,6 +130,23 @@ function App() {
 
 export default App;
 
+// Nouveau useEffect pour charger les données
 useEffect(() => {
-  console.log("Configuration Firebase :", firebaseConfig);
+  const loadEvents = async () => {
+    try {
+      const response = await fetch(
+        `https://api.jsonbin.io/v3/b/${import.meta.env.VITE_JSONBIN_BIN_ID}/latest`,
+        {
+          headers: {
+            'X-Access-Key': import.meta.env.VITE_JSONBIN_KEY
+          }
+        }
+      );
+      const { record } = await response.json();
+      setEvents(record || []);
+    } catch (error) {
+      console.error('Erreur de chargement:', error);
+    }
+  };
+  loadEvents();
 }, []);
