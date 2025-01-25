@@ -18,13 +18,11 @@ function App() {
   const [title, setTitle] = useState('');
   const [type, setType] = useState('perso');
 
-  // Chargement initial depuis localStorage
   useEffect(() => {
     const savedEvents = localStorage.getItem('calendarEvents');
     if (savedEvents) setEvents(JSON.parse(savedEvents));
   }, []);
 
-  // Sauvegarde dans localStorage
   const saveEvents = (newEvents) => {
     setEvents(newEvents);
     localStorage.setItem('calendarEvents', JSON.stringify(newEvents));
@@ -49,7 +47,7 @@ function App() {
   };
 
   return (
-    <div style={{ padding: '20px', maxWidth: '1000px', margin: '0 auto' }}>
+    <div className="app-container">
       <FullCalendar
         plugins={[dayGridPlugin, interactionPlugin]}
         initialView="dayGridMonth"
@@ -61,12 +59,9 @@ function App() {
           center: 'title',
           end: 'prev,next'
         }}
+        eventClassNames={(arg) => `event-${arg.event.extendedProps.type}`}
       />
-<div className="app-container">
-  <FullCalendar
-    // ... autres props
-    eventClassNames={(arg) => `event-${arg.event.extendedProps.type}`}
-  />
+
       <Modal open={open} onClose={() => setOpen(false)}>
         <Box sx={modalStyle}>
           <h2>Nouvel événement</h2>
@@ -106,8 +101,10 @@ const modalStyle = {
   left: '50%',
   transform: 'translate(-50%, -50%)',
   width: 400,
-  bgcolor: 'background.paper', // Vérifiez cette ligne
+  bgcolor: 'background.paper',
   borderRadius: '8px',
   boxShadow: 24,
-  p: 4, // La virgule finale est importante
-}; // <-- Vérifiez que l'accolade fermante est bien présente
+  p: 4,
+};
+
+export default App;
