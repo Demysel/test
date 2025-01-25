@@ -1,1 +1,82 @@
+/* src/App.css */
 
+/* Styles généraux de l'application */
+.app-container {
+  padding: 2rem;
+  min-height: 100vh;
+  background-color: #f5f5f5;
+}
+
+/* Styles pour le calendrier */
+.fc {
+  background-color: white;
+  border-radius: 8px;
+  padding: 1rem;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.fc-toolbar-title {
+  font-weight: 600 !important;
+  color: #333;
+}
+
+.fc-daygrid-day {
+  transition: background-color 0.2s;
+}
+
+.fc-daygrid-day:hover {
+  background-color: #f8f9fa;
+}
+
+/* Styles personnalisés pour les événements */
+.fc-event {
+  border: none !important;
+  border-radius: 4px !important;
+  font-size: 0.9em !important;
+  padding: 2px 5px !important;
+  margin: 2px 0 !important;
+}
+
+.fc-event-title {
+  font-weight: 500;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .app-container {
+    padding: 1rem;
+  }
+
+  .fc-toolbar {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .fc-header-toolbar {
+    margin-bottom: 1rem !important;
+  }
+}
+
+/* Styles pour les boutons */
+button.fc-button-primary {
+  background-color: #4caf50 !important;
+  border-color: #4caf50 !important;
+  transition: opacity 0.2s;
+}
+
+button.fc-button-primary:hover {
+  opacity: 0.9;
+}
+
+/* Personnalisation des couleurs des événements */
+.event-perso {
+  background-color: #2196f3;
+}
+
+.event-pro {
+  background-color: #4caf50;
+}
+
+.event-enfant {
+  background-color: #ff9800;
+}
