@@ -115,3 +115,7 @@ function App() {
 }
 
 export default App;
+
+useEffect(() => {
+  console.log("Configuration Firebase :", firebaseConfig);
+}, []);
