@@ -3,6 +3,8 @@ import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import { Button, Modal, TextField, Select, MenuItem, Box } from '@mui/material';
+import { db, eventsCollection } from './utils/firebase';
+import { onSnapshot, addDoc } from 'firebase/firestore';
 import './App.css';
 
 const EVENT_COLORS = {
@@ -19,32 +21,42 @@ function App() {
   const [type, setType] = useState('perso');
 
   useEffect(() => {
-    const savedEvents = localStorage.getItem('calendarEvents');
-    if (savedEvents) setEvents(JSON.parse(savedEvents));
-  }, []);
+    const unsubscribe = onSnapshot(eventsCollection, (snapshot) => {
+      const firebaseEvents = snapshot.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data()
+      }));
+      setEvents(firebaseEvents);
+    });
 
-  const saveEvents = (newEvents) => {
-    setEvents(newEvents);
-    localStorage.setItem('calendarEvents', JSON.stringify(newEvents));
-  };
+    return () => unsubscribe();
+  }, []);
 
   const handleDateClick = (arg) => {
     setSelectedDate(arg.dateStr);
     setOpen(true);
   };
 
-  const handleSubmit = () => {
-    const newEvent = {
-      title,
-      date: selectedDate,
-      backgroundColor: EVENT_COLORS[type],
-      type
-    };
-    saveEvents([...events, newEvent]);
-    setOpen(false);
-    setTitle('');
-    setType('perso');
+  const handleSubmit = async () => {
+    try {
+      await addDoc(eventsCollection, {
+        title,
+        date: selectedDate,
+        type,
+        backgroundColor: EVENT_COLORS[type]
+      });
+      setOpen(false);
+      setTitle('');
+      setType('perso');
+    } catch (error) {
+      console.error("Erreur d'ajout d'événement : ", error);
+    }
   };
+
+  // ... reste du code inchangé
+}
+
+// ... modalStyle et export
 
   return (
     <div className="app-container">
