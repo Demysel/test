@@ -61,7 +61,11 @@ function App() {
           end: 'prev,next'
         }}
       />
-
+<div className="app-container">
+  <FullCalendar
+    // ... autres props
+    eventClassNames={(arg) => `event-${arg.event.extendedProps.type}`}
+  />
       <Modal open={open} onClose={() => setOpen(false)}>
         <Box sx={modalStyle}>
           <h2>Nouvel événement</h2>
