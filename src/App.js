@@ -3,8 +3,6 @@ import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import { Button, Modal, TextField, Select, MenuItem, Box } from '@mui/material';
-import { db, eventsCollection } from './utils/firebase';
-import { onSnapshot, addDoc } from 'firebase/firestore';
 import './App.css';
 
 const EVENT_COLORS = {
