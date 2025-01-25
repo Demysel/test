@@ -15,3 +15,6 @@ const db = getFirestore(app);
 const eventsCollection = collection(db, 'events');
 
 export { db, eventsCollection };
+
+import { setLogLevel } from 'firebase/firestore';
+setLogLevel('debug'); // Pour le débogage
