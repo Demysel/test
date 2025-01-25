@@ -106,10 +106,8 @@ const modalStyle = {
   left: '50%',
   transform: 'translate(-50%, -50%)',
   width: 400,
-  bgcolor: 'background.paper',
+  bgcolor: 'background.paper', // Vérifiez cette ligne
   borderRadius: '8px',
   boxShadow: 24,
-  p: 4,
-};
-
-export default App;
+  p: 4, // La virgule finale est importante
+}; // <-- Vérifiez que l'accolade fermante est bien présente
