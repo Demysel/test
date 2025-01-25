@@ -3,6 +3,7 @@ import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import { Button, Modal, TextField, Select, MenuItem, Box } from '@mui/material';
+import './App.css';
 
 const EVENT_COLORS = {
   perso: '#2196f3',
