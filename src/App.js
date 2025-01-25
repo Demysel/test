@@ -13,6 +13,18 @@ const EVENT_COLORS = {
   enfant: '#ff9800'
 };
 
+const modalStyle = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 400,
+  bgcolor: 'background.paper',
+  borderRadius: '8px',
+  boxShadow: 24,
+  p: 4,
+};
+
 function App() {
   const [events, setEvents] = useState([]);
   const [open, setOpen] = useState(false);
@@ -52,11 +64,6 @@ function App() {
       console.error("Erreur d'ajout d'événement : ", error);
     }
   };
-
-  // ... reste du code inchangé
-}
-
-// ... modalStyle et export
 
   return (
     <div className="app-container">
@@ -106,17 +113,5 @@ function App() {
     </div>
   );
 }
-
-const modalStyle = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: 400,
-  bgcolor: 'background.paper',
-  borderRadius: '8px',
-  boxShadow: 24,
-  p: 4,
-};
 
 export default App;
